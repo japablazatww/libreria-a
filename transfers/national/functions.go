@@ -24,3 +24,27 @@ func Transfer(sourceAccount string, destAccount string, amount float64, currency
 	fmt.Printf("[Libreria-A/National] Transferring %.2f %s from %s to %s\n", amount, currency, sourceAccount, destAccount)
 	return "TX-123456789", nil
 }
+
+type TransferRequest struct {
+	SourceAccount string  `json:"source_account"`
+	DestAccount   string  `json:"dest_account"`
+	Amount        float64 `json:"amount"`
+	Currency      string  `json:"currency"`
+}
+
+type TransferResponse struct {
+	TransactionID string `json:"transaction_id"`
+	Status        string `json:"status"`
+}
+
+// ComplexTransfer performs a transfer using a struct input/output.
+func ComplexTransfer(req TransferRequest) (TransferResponse, error) {
+	if req.Amount <= 0 {
+		return TransferResponse{Status: "FAILED"}, errors.New("amount must be positive")
+	}
+	fmt.Printf("[Libreria-A/National] ComplexTransfer: %v\n", req)
+	return TransferResponse{
+		TransactionID: "CTX-99999",
+		Status:        "SUCCESS",
+	}, nil
+}
