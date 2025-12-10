@@ -25,18 +25,6 @@ func Transfer(sourceAccount string, destAccount string, amount float64, currency
 	return "TX-123456789", nil
 }
 
-type TransferRequest struct {
-	SourceAccount string  `json:"source_account"`
-	DestAccount   string  `json:"dest_account"`
-	Amount        float64 `json:"amount"`
-	Currency      string  `json:"currency"`
-}
-
-type TransferResponse struct {
-	TransactionID string `json:"transaction_id"`
-	Status        string `json:"status"`
-}
-
 // ComplexTransfer performs a transfer using a struct input/output.
 func ComplexTransfer(req TransferRequest) (TransferResponse, error) {
 	if req.Amount <= 0 {
